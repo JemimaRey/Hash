@@ -58,6 +58,9 @@ public class FrameHash extends javax.swing.JFrame {
     public void seleccionarFila(int posicion) {
         if (posicion >= 0 && posicion < this.array.arreglo.length) {
             this.tabla.setRowSelectionInterval(posicion, posicion);
+            JOptionPane.showMessageDialog(null, "Elemento encontrado en la posición "+posicion);
+        }else{
+        JOptionPane.showMessageDialog(null, "No se encontró el elemento");
         }
     }
 
@@ -225,8 +228,6 @@ public class FrameHash extends javax.swing.JFrame {
         int opcion = JOptionPane.showConfirmDialog(null, "¿Está seguro que quiere salir?", "SALIR", JOptionPane.YES_NO_OPTION);
         if (opcion == JOptionPane.YES_OPTION) {
             System.exit(0);
-        } else {
-            remove(opcion);
         }
     }//GEN-LAST:event_btnSalirActionPerformed
 

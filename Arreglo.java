@@ -13,8 +13,9 @@ import javax.swing.JOptionPane;
 public class Arreglo {
     // Atributos
 
-    String[] arreglo = new String[101];
-    int cantidad_elementos;
+    int cantidad_elementos = 101;
+    String[] arreglo = new String[cantidad_elementos];
+
     boolean mod, cuadrado, truncamiento, ddh;
 
     public Arreglo(boolean mod, boolean ddh, boolean cuadrado, boolean truncamiento) {
@@ -91,18 +92,25 @@ public class Arreglo {
         } else {
 
             nueva_direccion = direccion_inicial;
+
         }
         // si el método de direcciones seleccionado es el del módulo ...
 
         int x = 0;
         while (x < 99 && (this.arreglo[nueva_direccion] == null ? buscado != null : !this.arreglo[nueva_direccion].equals(buscado))) {
-
+            if (nueva_direccion % this.cantidad_elementos == nueva_direccion && mod) {
+                nueva_direccion = (nueva_direccion * nueva_direccion) + 1013;
+            }
+            
             nueva_direccion = metodoDirecciones(String.valueOf(nueva_direccion));
+            System.out.println("Nueva direccion: "+nueva_direccion);
+            
             if (buscado == null && (this.arreglo[nueva_direccion] == null ? value == null : this.arreglo[nueva_direccion].equals(value))) {
                 System.out.println("Elemento repetido");
                 JOptionPane.showMessageDialog(null, "Elemento repetido");
                 return -1;
             }
+
             x++;
         }
         System.out.println(x);
@@ -149,7 +157,7 @@ public class Arreglo {
         /*
         Primero se asegura que el valor con el que se va a trabar tenga una longitud
         de al menos 4
-        */
+         */
         while (valor.length() < 4 && x < 5) {
             int valor_int = Integer.valueOf(valor);
             valor_int = (valor_int * valor_int) + 100;
@@ -158,7 +166,7 @@ public class Arreglo {
         }
         /*
         Se toma el primero y el tercero, si llegará a haber una excepcion devolverá -1
-        */
+         */
         try {
             n1 = valor.charAt(0);
             n2 = valor.charAt(2);
@@ -187,6 +195,7 @@ public class Arreglo {
         }catch(NumberFormatException nfe){
             return -1;
         }*/
+
         return direccion;
     }
 
@@ -203,7 +212,7 @@ public class Arreglo {
         int direccion;
         direccion = metodoDirecciones(valor);
         // si el lugar que se sacó no tiene el valor que se está buscando...
-        if (!this.arreglo[direccion].equals(valor)) {
+        if (this.arreglo[direccion] == null ? valor != null : !this.arreglo[direccion].equals(valor)) {
             direccion = metodoColisiones(direccion, valor, valor);
         }
         // OJO, PUEDE DEVOLVER UN -1
